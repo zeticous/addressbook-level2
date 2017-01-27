@@ -11,34 +11,62 @@ public class Address {
     public static final String EXAMPLE = "123, some street";
     public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
     public static final String ADDRESS_VALIDATION_REGEX = ".+";
-
-    public final String value;
+    
+    public static final int ADDRESS_INDEX_BLOCK = 0;
+    public static final int ADDRESS_INDEX_STREET = 1;
+    public static final int ADDRESS_INDEX_UNIT = 2;
+    public static final int ADDRESS_INDEX_POSTAL_CODE = 3;
+    public static final int ADDRESS_FIELD_COUNT = 4;
+    
     private boolean isPrivate;
-
-    /**
+    
+    private Block addressBlock;
+    private Street addressStreet;
+    private Unit addressUnit;
+    private PostalCode addressPostalCode;
+    
+    public String value;
+    /*
      * Validates given address.
-     *
      * @throws IllegalValueException if given address string is invalid.
      */
     public Address(String address, boolean isPrivate) throws IllegalValueException {
-        String trimmedAddress = address.trim();
+        /*
+         * Address Format: a/ BLOCK, STREET, FLOOR-UNIT, POSTAL_CODE
+         */
+        
+        String[] addressField = splitAddress(address);
         this.isPrivate = isPrivate;
-        if (!isValidAddress(trimmedAddress)) {
+        if (!isValidAddress(address)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
-        this.value = trimmedAddress;
+        
+        fillAddressField(addressField);
+        value = toString();
+    }
+    
+    public String[] splitAddress(String address){
+        return address.split(",");
+    }
+    
+    public void fillAddressField(String[] addressField){
+        addressBlock = new Block(addressField[ADDRESS_INDEX_BLOCK].trim());
+        addressStreet = new Street(addressField[ADDRESS_INDEX_STREET].trim());
+        addressUnit = new Unit(addressField[ADDRESS_INDEX_UNIT].trim());
+        addressPostalCode = new PostalCode(addressField[ADDRESS_INDEX_POSTAL_CODE].trim());
     }
 
     /**
      * Returns true if a given string is a valid person email.
      */
     public static boolean isValidAddress(String test) {
-        return test.matches(ADDRESS_VALIDATION_REGEX);
+        return test.matches("(.*),(.*),(.*)-(.*),(.*)");
     }
 
     @Override
     public String toString() {
-        return value;
+        return addressBlock.getBlockNumber()+", "+addressStreet.getStreetName()+", "
+                +addressUnit.getUnitNumber()+", "+addressPostalCode.getPostalCode();
     }
 
     @Override
