@@ -16,18 +16,11 @@ import java.util.Scanner;
  * Text UI of the application.
  */
 public class TextUi {
-
-    /** A decorative prefix added to the beginning of lines printed by AddressBook */
-    private static final String LINE_PREFIX = "|| ";
-
-    /** A platform independent line separator. */
-    private static final String LS = System.lineSeparator();
-
+    
     private static final String DIVIDER = "===================================================";
 
     /** Format of indexed list item */
     private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
-
 
     /** Offset required to convert between 1-indexing and 0-indexing.  */
     public static final int DISPLAYED_INDEX_OFFSET = 1;
@@ -75,7 +68,7 @@ public class TextUi {
      * @return command (full line) entered by the user
      */
     public String getUserCommand() {
-        out.print(LINE_PREFIX + "Enter command: ");
+        showToUser("Enter command: ");
         String fullInputLine = in.nextLine();
 
         // silently consume all ignored lines
@@ -111,8 +104,13 @@ public class TextUi {
 
     /** Shows message(s) to the user */
     public void showToUser(String... message) {
-        for (String m : message) {
-            out.println(LINE_PREFIX + m.replace("\n", LS + LINE_PREFIX));
+        if (message.length == 1){
+            out.print(PrefixFormatter.addPrefix(message[0]));
+        
+        } else{
+            for (String m : message) {
+                out.println(PrefixFormatter.addPrefix(m));
+            }
         }
     }
 
