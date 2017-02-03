@@ -105,11 +105,11 @@ public class TextUi {
     /** Shows message(s) to the user */
     public void showToUser(String... message) {
         if (message.length == 1){
-            out.print(PrefixFormatter.addPrefix(message[0]));
+            out.print(PrefixFormatter.addLinePrefix(message[0]));
         
         } else{
             for (String m : message) {
-                out.println(PrefixFormatter.addPrefix(m));
+                out.println(PrefixFormatter.addLinePrefix(m));
             }
         }
     }
