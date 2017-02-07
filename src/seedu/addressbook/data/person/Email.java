@@ -1,14 +1,12 @@
 package seedu.addressbook.data.person;
 
-import java.util.ArrayList;
-
 import seedu.addressbook.data.exception.IllegalValueException;
 
 /**
  * Represents a Person's email in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
-public class Email implements Printable{
+public class Email {
 
     public static final String EXAMPLE = "valid@e.mail";
     public static final String MESSAGE_EMAIL_CONSTRAINTS =
@@ -59,19 +57,5 @@ public class Email implements Printable{
 
     public boolean isPrivate() {
         return isPrivate;
-    }
-    
-    @Override
-    public String getPrintableString(Printable... printables) {
-        ArrayList<String> printableStringList = new ArrayList<String>();
-        for(Printable p: printables){
-            printableStringList.add(p.getFormatString());
-        }
-        return String.join(" , ", printableStringList);
-    }
-
-    @Override
-    public String getFormatString() {
-        return "Email: "+toString();
     }
 }
