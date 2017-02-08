@@ -3,6 +3,7 @@ package seedu.addressbook.data.person;
 import seedu.addressbook.data.exception.IllegalValueException;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,7 +45,31 @@ public class Name {
             return false;
         }
         
-        return fullName.equals(other);
+        HashMap<String,Integer> fullNameWordMap = new HashMap<String,Integer>();
+        
+        String[] fullNameWords = fullName.split(" ");
+        String[] otherNameWords = other.split(" ");
+        
+        for(String word: fullNameWords){
+            if(fullNameWordMap.containsKey(word)){
+                fullNameWordMap.put(word, fullNameWordMap.get(word)-1);
+            } else {
+                fullNameWordMap.put(word, 1);
+            }
+        }
+        
+        for(String word: otherNameWords){
+            if(fullNameWordMap.containsKey(word)){
+                if(fullNameWordMap.get(word)>1){
+                    fullNameWordMap.put(word,fullNameWordMap.get(word)-1);
+                } else {
+                    fullNameWordMap.remove(word);
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

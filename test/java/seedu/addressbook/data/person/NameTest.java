@@ -29,4 +29,16 @@ public class NameTest {
         Name testName = new Name("potato");
         assertFalse(testName.isSimilar(null));
     }
+    
+    @Test
+    public void testIsSimilar_nameDifferentOrder() throws IllegalValueException{
+        Name testName = new Name("huge potato");
+        assertTrue(testName.isSimilar("potato huge"));
+    }
+    
+    @Test
+    public void testIsSimilar_otherSubsetOfName() throws IllegalValueException{
+        Name testName = new Name("really huge potato");
+        assertTrue(testName.isSimilar("potato huge"));
+    }
 }
