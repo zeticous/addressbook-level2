@@ -47,8 +47,11 @@ public class Name {
         
         HashMap<String,Integer> fullNameWordMap = new HashMap<String,Integer>();
         
-        String[] fullNameWords = fullName.split(" ");
-        String[] otherNameWords = other.split(" ");
+        String fullNameWithoutCommas = fullName.replaceAll(","," ");
+        String otherNameWithoutCommas = other.replaceAll(","," ");
+        
+        String[] fullNameWords = fullNameWithoutCommas.split(" ");
+        String[] otherNameWords = otherNameWithoutCommas.split(" ");
         
         for(String word: fullNameWords){
             if(fullNameWordMap.containsKey(word)){

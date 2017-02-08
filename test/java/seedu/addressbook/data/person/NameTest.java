@@ -41,4 +41,10 @@ public class NameTest {
         Name testName = new Name("really huge potato");
         assertTrue(testName.isSimilar("potato huge"));
     }
+    
+    @Test
+    public void testIsSimilar_nameDifferentOrderHasCommas() throws IllegalValueException{
+        Name testName = new Name("huge potato");
+        assertTrue(testName.isSimilar("potato,huge"));
+    }
 }
