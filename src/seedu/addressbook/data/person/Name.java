@@ -35,6 +35,13 @@ public class Name {
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
     }
+    
+    /**
+     * Returns true if the names are similar
+     */
+    public boolean isSimilar(String other){
+        return false;
+    }
 
     /**
      * Retrieves a listing of every word in the name, in order.
