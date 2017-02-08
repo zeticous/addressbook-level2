@@ -23,4 +23,10 @@ public class NameTest {
         Name testName = new Name("potato");
         assertTrue(testName.isSimilar("potato"));
     }
+    
+    @Test
+    public void testIsSimilar_nullOther() throws IllegalValueException{
+        Name testName = new Name("potato");
+        assertFalse(testName.isSimilar(null));
+    }
 }

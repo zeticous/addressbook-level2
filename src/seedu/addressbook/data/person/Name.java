@@ -40,7 +40,11 @@ public class Name {
      * Returns true if the names are similar
      */
     public boolean isSimilar(String other){
-        return other.equals(fullName);
+        if(other == null){
+            return false;
+        }
+        
+        return fullName.equals(other);
     }
 
     /**
