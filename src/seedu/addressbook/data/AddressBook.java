@@ -5,7 +5,9 @@ import seedu.addressbook.data.person.UniquePersonList.*;
 import seedu.addressbook.data.tag.UniqueTagList;
 import seedu.addressbook.data.tag.UniqueTagList.*;
 import seedu.addressbook.data.tag.Tag;
+import seedu.addressbook.data.tag.Tagging;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -22,13 +24,14 @@ public class AddressBook {
 
     private final UniquePersonList allPersons;
     private final UniqueTagList allTags; // can contain tags not attached to any person
-
+    private final ArrayList<Tagging> allTaggings;
     /**
      * Creates an empty address book.
      */
     public AddressBook() {
         allPersons = new UniquePersonList();
         allTags = new UniqueTagList();
+        allTaggings = new ArrayList<Tagging>();
     }
 
     /**
@@ -44,6 +47,8 @@ public class AddressBook {
         for (Person p : allPersons) {
             syncTagsWithMasterList(p);
         }
+        
+        allTaggings = new ArrayList<Tagging>();
     }
 
     /**
@@ -88,6 +93,29 @@ public class AddressBook {
      */
     public void addTag(Tag toAdd) throws DuplicateTagException {
         allTags.add(toAdd);
+    }
+    
+    /**
+     * Records any tags that are added to a person into allTaggings. 
+     */
+    public void addTaggings(Tag tag, Person person){
+        allTaggings.add(new Tagging(tag,person,Tagging.STATE_ADD_TAG));
+    }
+    
+    /**
+     * Records any tags that are removed from a person into allTaggings. 
+     */
+    public void removeTaggings(Tag tag, Person person){
+        allTaggings.add(new Tagging(tag,person,Tagging.STATE_REMOVE_TAG));
+    }
+    
+    /**
+     * Print all records of tagging. 
+     */
+    public void printTaggings(){
+        for(Tagging tagging: allTaggings){
+            System.out.println(tagging.toString());
+        }
     }
 
     /**
