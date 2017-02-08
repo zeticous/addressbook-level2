@@ -47,8 +47,8 @@ public class Name {
         
         HashMap<String,Integer> fullNameWordMap = new HashMap<String,Integer>();
         
-        String fullNameWithoutCommas = fullName.replaceAll(","," ");
-        String otherNameWithoutCommas = other.replaceAll(","," ");
+        String fullNameWithoutCommas = fullName.replaceAll(","," ").toLowerCase();
+        String otherNameWithoutCommas = other.replaceAll(","," ").toLowerCase();
         
         String[] fullNameWords = fullNameWithoutCommas.split(" ");
         String[] otherNameWords = otherNameWithoutCommas.split(" ");

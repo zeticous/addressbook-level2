@@ -47,4 +47,16 @@ public class NameTest {
         Name testName = new Name("huge potato");
         assertTrue(testName.isSimilar("potato,huge"));
     }
+    
+    @Test
+    public void testIsSimilar_nameSubsetOfOther() throws IllegalValueException{
+        Name testName = new Name("huge potato");
+        assertFalse(testName.isSimilar("really potato huge"));
+    }
+    
+    @Test
+    public void testIsSimilar_sameNamesDifferentCapitalisation() throws IllegalValueException{
+        Name testName = new Name("huge potato");
+        assertTrue(testName.isSimilar("HUGE POTATO"));
+    }
 }
